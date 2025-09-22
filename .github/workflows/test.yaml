@@ -1,0 +1,33 @@
+name: Test pre-commit hook
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: pip install pre-commit sops
+      - name: Expect hook to fail on unencrypted file
+        run: |
+          if pre-commit try-repo . --files tests/unencrypted.sops.yaml; then
+            echo "Hook unexpectedly passed on unencrypted file."
+            exit 1
+          else
+            echo "Hook correctly failed on unencrypted file."
+          fi
+      - name: Expect hook to pass on encrypted file
+        run: |
+          if pre-commit try-repo . --files tests/encrypted.sops.yaml; then
+            echo "Hook correctly passed on encrypted file."
+          else
+            echo "Hook unexpectedly failed on encrypted file."
+            exit 1
+          fi
