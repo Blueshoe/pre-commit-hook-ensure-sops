@@ -4,6 +4,9 @@ A pre-commit hook to ensures that files are sops encrypted.
 Our main usage for SOPS is to directly encrypt Kubernetes Secrets. 
 Out of this, this pre-commit hook has been developed. 
 
+We SOPS-encrypt the K8s secrets with following settings: `unencrypted_regex: "^(apiVersion|metadata|kind|type)$"`.
+This hook checks, whether the file has a top-level key called `sops:`.
+
 ## Example usage
 Just add the following to your projects `.pre-commit-config.yaml`, to check whether all files that end in `.sops.yaml` are sops encrypted:
 
