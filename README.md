@@ -15,6 +15,8 @@ repos:
     rev: v1.0.0
     hooks:
       - id: forbid-unencrypted-sops
-        # only run this hook on files with .sops.yaml extension
-        files: \.sops\.yaml$
+        # only run this hook on files with .sops.yaml extension (excluding the actual .sops.yaml file)
+        files: .\.sops\.yaml$
 ```
+
+Keep in mind, that the files to run it against need to be staged, i.e. run `git add .` (or something more specific) before running pre-commit.
