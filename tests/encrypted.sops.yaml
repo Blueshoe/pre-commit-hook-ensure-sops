@@ -1,0 +1,13 @@
+# This file is correctly encrypted and should pass
+apiVersion: v1
+kind: Secret
+metadata:
+  name: my-secret
+type: Opaque
+data:
+  key: ENC[AES256_GCM,data:[...]]
+sops:
+  lastmodified: "2025-09-22T16:30:00Z"
+  mac: "..."
+  pgp: "..."
+

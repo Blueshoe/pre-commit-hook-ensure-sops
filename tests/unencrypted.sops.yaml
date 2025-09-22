@@ -1,0 +1,7 @@
+# This file is NOT encrypted and should be caught by the hook
+apiVersion: v1
+kind: Secret
+metadata:
+  name: my-secret
+stringData:
+  key: value
